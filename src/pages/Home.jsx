@@ -9,8 +9,9 @@ function Home () {
         {x: 68.7691, y: 97.2426},
         {x: 63.8778, y: 97.0588}
     ]);
+    const [allClicks, setAllClicks] = useState([]);
 
-    function isPointInQuad(px, py) {
+    const isPointInQuad = (px, py) => {
         const cross = (ax, ay, bx, by) => ax * by - ay * bx;
 
         for (let i = 0; i < 4; i++) {
@@ -39,9 +40,14 @@ function Home () {
         const percentX = parseFloat(xCoordinate.toFixed(4));
         const percentY = parseFloat(yCoordinate.toFixed(4));
 
-        let blah = {x: percentX, y: percentY};
+        const isHit = isPointInQuad(xCoordinate, yCoordinate);
 
-        console.log(isPointInQuad(blah.x, blah.y));
+        const clickedObject = {x: percentX, y: percentY, hit: isHit};
+
+        setAllClicks([
+            ...allClicks,
+            clickedObject
+        ]);
     };
 
     return (
