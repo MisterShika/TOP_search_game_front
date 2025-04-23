@@ -1,0 +1,18 @@
+.image-wrapper {
+    position: relative;
+    display: inline-block; /* shrink-wrap to image */
+  }
+  
+  .image-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto; /* maintains aspect ratio */
+  }
+  
+  .image-wrapper canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    pointer-events: none; /* if you want clicks to pass through */
+  }

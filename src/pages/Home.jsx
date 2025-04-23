@@ -1,6 +1,8 @@
 import Header from '../components/Header';
+import SubmitClicks from '../components/SubmitClicks';
 import waldo from '../assets/waldo.jpg'
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
+import '../styles/home.css';
 
 function Home () {
     const [locationCoord, setLocationCoord] = useState([
@@ -10,6 +12,8 @@ function Home () {
         {x: 63.8778, y: 97.0588}
     ]);
     const [allClicks, setAllClicks] = useState([]);
+    const canvasRef = useRef(null);
+    const imgRef = useRef(null);
 
     const isPointInQuad = (px, py) => {
         const cross = (ax, ay, bx, by) => ax * by - ay * bx;
@@ -50,14 +54,31 @@ function Home () {
         ]);
     };
 
+    const syncCanvasSize = () => {
+        const canvas = canvasRef.current;
+        const img = imgRef.current;
+    
+        if (canvas && img) {
+          canvas.width = img.clientWidth;
+          canvas.height = img.clientHeight;
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', syncCanvasSize);
+        return () => window.removeEventListener('resize', syncCanvasSize);
+    }, []);
+
     return (
         <main>
             <Header />
             Hello World
-            <img 
-                src={waldo}
-                onClick = {imageClick}
-                alt="Waldo" />
+
+            <div className="image-wrapper">
+                <canvas ref={canvasRef}  />
+                <img src={waldo} alt="Waldo" ref={imgRef} onLoad={syncCanvasSize} onClick={imageClick} />
+            </div>
+            <SubmitClicks allClicks={allClicks}/>
         </main>
     )
 }
