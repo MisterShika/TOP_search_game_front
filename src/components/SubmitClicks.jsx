@@ -5,7 +5,7 @@ function SubmitClicks ({allClicks}) {
             Testing
             {
                 allClicks.map((location, index) => (
-                    <div key={index}>{location.x}</div>
+                    <div key={index} className={location.hit ? "hit" : "miss"}>X: {location.x}, Y: {location.y}</div>
                 ))
             }
         </div>

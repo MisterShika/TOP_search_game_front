@@ -69,6 +69,24 @@ function Home () {
         return () => window.removeEventListener('resize', syncCanvasSize);
     }, []);
 
+    useEffect(() => {
+        console.log(allClicks);
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        allClicks.forEach(({ x, y, hit }) => {
+            const px = (x / 100) * canvas.width;
+            const py = (y / 100) * canvas.height;
+            ctx.beginPath();
+            ctx.arc(px, py, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = hit ? "lightgreen" : "red";
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+        });
+    }, [allClicks]);
+
     return (
         <main>
             <Header />

@@ -16,3 +16,10 @@
     z-index: 5;
     pointer-events: none; /* if you want clicks to pass through */
   }
+
+.miss{
+  color: red;
+}
+.hit{
+  color: lightgreen;
+}
