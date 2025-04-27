@@ -47,7 +47,15 @@ function Home () {
 
         const isHit = isPointInQuad(xCoordinate, yCoordinate);
 
-        const clickedObject = {x: percentX, y: percentY, hit: isHit, tags: [], notes: ""};
+        const now = new Date();
+
+        const clickedObject = {
+            x: percentX, 
+            y: percentY, 
+            time: now,
+            hit: isHit, 
+            tags: [], 
+            notes: ""};
 
         setAllClicks([
             ...allClicks,
