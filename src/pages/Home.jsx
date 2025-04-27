@@ -1,7 +1,8 @@
 import Header from '../components/Header';
 import SubmitClicks from '../components/SubmitClicks';
 import waldo from '../assets/waldo.jpg'
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, useContext} from 'react';
+import { ClickContext } from '../context/ClickContext';
 import '../styles/home.css';
 
 function Home () {
@@ -11,9 +12,9 @@ function Home () {
         {x: 68.7691, y: 97.2426},
         {x: 63.8778, y: 97.0588}
     ]);
-    const [allClicks, setAllClicks] = useState([]);
     const canvasRef = useRef(null);
     const imgRef = useRef(null);
+    const { allClicks, setAllClicks } = useContext(ClickContext);
 
     const isPointInQuad = (px, py) => {
         const cross = (ax, ay, bx, by) => ax * by - ay * bx;
@@ -46,7 +47,7 @@ function Home () {
 
         const isHit = isPointInQuad(xCoordinate, yCoordinate);
 
-        const clickedObject = {x: percentX, y: percentY, hit: isHit};
+        const clickedObject = {x: percentX, y: percentY, hit: isHit, tags: [], notes: ""};
 
         setAllClicks([
             ...allClicks,
@@ -96,7 +97,7 @@ function Home () {
                 <canvas ref={canvasRef}  />
                 <img src={waldo} alt="Waldo" ref={imgRef} onLoad={syncCanvasSize} onClick={imageClick} />
             </div>
-            <SubmitClicks allClicks={allClicks}/>
+            <SubmitClicks allClicks={allClicks} setAllClicks={setAllClicks}/>
         </main>
     )
 }

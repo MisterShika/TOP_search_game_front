@@ -1,4 +1,4 @@
-function SubmitClicks ({allClicks}) {
+function SubmitClicks ({allClicks, setAllClicks}) {
 
     return (
         <div>
